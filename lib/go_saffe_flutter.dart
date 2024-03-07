@@ -138,9 +138,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                   urlController.text = this.url;
                 });
               },
-              onConsoleMessage: (controller, consoleMessage) {
-                print(consoleMessage);
-              },
+              onConsoleMessage: (controller, consoleMessage) {},
             ),
             if (isLoading)
               const Center(
