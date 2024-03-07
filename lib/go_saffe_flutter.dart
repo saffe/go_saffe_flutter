@@ -7,33 +7,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 /// Go Saffe Capture Widget.
-class GoSaffeCapture {
-  String apiKey = "";
-  String identifier = "";
-  String type = "";
-  String endToEndId = "";
-
-  GoSaffeCapture(this.apiKey, this.identifier, this.type, this.endToEndId);
-
-  Widget render() {
-    return Render(apiKey, identifier, type, endToEndId);
-  }
-}
-
-class Render extends StatefulWidget {
+class GoSaffeCapture extends StatefulWidget {
   final String apiKey;
   final String identifier;
   final String type;
   final String endToEndId;
 
-  const Render(this.apiKey, this.identifier, this.type, this.endToEndId,
+  const GoSaffeCapture(this.apiKey, this.identifier, this.type, this.endToEndId,
       {super.key});
 
   @override
-  State<Render> createState() => _RenderState();
+  State<GoSaffeCapture> createState() => _CaptureState();
 }
 
-class _RenderState extends State<Render> {
+class _CaptureState extends State<GoSaffeCapture> {
   final GlobalKey webViewKey = GlobalKey();
 
   InAppWebViewController? webViewController;
@@ -45,7 +32,7 @@ class _RenderState extends State<Render> {
       iframeAllowFullscreen: true);
 
   String url = "";
-  double progress = 0;
+  bool isLoading = true;
   final urlController = TextEditingController();
 
   @override
@@ -64,7 +51,7 @@ class _RenderState extends State<Render> {
             InAppWebView(
               key: webViewKey,
               initialUrlRequest: URLRequest(
-                url: WebUri("https://go.saffe.ai/v0/capture"),
+                url: WebUri("https://xl7coszbs3ct.share.zrok.io/v0/capture"),
                 method: "POST",
                 body: Uint8List.fromList(utf8.encode(jsonEncode({
                   "api_key": widget.apiKey,
@@ -79,6 +66,11 @@ class _RenderState extends State<Render> {
               initialSettings: settings,
               onWebViewCreated: (controller) {
                 webViewController = controller;
+                controller.addJavaScriptHandler(
+                    handlerName: 'handler',
+                    callback: (args) {
+                      print("aqui");
+                    });
               },
               onLoadStart: (controller, url) {
                 setState(() {
@@ -101,10 +93,11 @@ class _RenderState extends State<Render> {
                 });
               },
               onProgressChanged: (controller, progress) {
-                setState(() {
-                  this.progress = progress / 100;
-                  urlController.text = url;
-                });
+                if (progress >= 100) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
               },
               onUpdateVisitedHistory: (controller, url, androidIsReload) {
                 setState(() {
@@ -112,11 +105,13 @@ class _RenderState extends State<Render> {
                   urlController.text = this.url;
                 });
               },
-              onConsoleMessage: (controller, consoleMessage) {},
+              onConsoleMessage: (controller, consoleMessage) {
+                  print(consoleMessage)
+              },
             ),
-            progress < 1.0
-                ? LinearProgressIndicator(value: progress)
-                : Container(),
+            if (isLoading)
+              const Center(
+                  child: CircularProgressIndicator(color: Colors.cyan)),
           ],
         ),
       ),
