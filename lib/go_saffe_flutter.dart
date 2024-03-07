@@ -9,7 +9,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 /// Go Saffe Capture Widget.
 class GoSaffeCapture extends StatefulWidget {
   final String apiKey;
-  final String identifier;
+  final String user;
   final String type;
   final String endToEndId;
   final Function()? onFinish;
@@ -17,7 +17,7 @@ class GoSaffeCapture extends StatefulWidget {
 
   const GoSaffeCapture(
     this.apiKey,
-    this.identifier,
+    this.user,
     this.type,
     this.endToEndId,
     this.onFinish,
@@ -64,7 +64,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                 method: "POST",
                 body: Uint8List.fromList(utf8.encode(jsonEncode({
                   "api_key": widget.apiKey,
-                  "user_identifier": widget.identifier,
+                  "user_identifier": widget.user,
                   "type": widget.type,
                   "end_to_end_id": widget.endToEndId,
                 }))),

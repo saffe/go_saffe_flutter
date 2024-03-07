@@ -1,73 +1,73 @@
 # GoSaffeCapture Flutter
 
-## Instalação
+## Installation
 
-Para utilizar o GoSaffeCapture em seu projeto Flutter, você precisa adicionar a dependência ao seu arquivo `pubspec.yaml`:
+To use GoSaffeCapture in your Flutter project, you need to add the dependency to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  go_saffe_flutter: ^1.0.0
+  go_saffe_flutter: ^0.0.2
 ```
 
-Após adicionar a dependência, execute `flutter pub get` para instalar o pacote.
+After adding the dependency, run `flutter pub get` to install the package.
 
-## Uso
+## Usage
 
-Para utilizar o GoSaffeCapture em seu aplicativo, siga estas etapas:
+To use GoSaffeCapture in your application, follow these steps:
 
-1. Importe o pacote `go_saffe_flutter/go_saffe_flutter.dart`.
+1. Import the package `go_saffe_flutter/go_saffe_flutter.dart`.
 
 ```dart
 import 'package:go_saffe_flutter/go_saffe_flutter.dart';
 ```
 
-2. Crie uma instância de GoSaffeCapture com os parâmetros necessários, incluindo a chave de API, identificador do usuário, tipo e ID de ponta a ponta. Além disso, defina as funções de callback `onFinish` e `onClose` para lidar com os eventos correspondentes recebidos do WebView.
+2. Create an instance of GoSaffeCapture with the necessary parameters, including the API key, user identifier, type, and end-to-end ID. Additionally, define the `onFinish` and `onClose` callback functions to handle the corresponding events received from the WebView.
 
 ```dart
 GoSaffeCapture(
-  apiKey: 'sua_api_key',
-  identifier: 'identificador_do_usuario',
-  type: 'tipo',
+  apiKey: 'your_api_key',
+  user: 'user_identifier',
+  type: 'verification | onboarding',
   endToEndId: 'end_to_end_id',
   onFinish: () {
-    // Faça algo quando o evento finish for recebido
-    print('Evento finish recebido');
+    // Do something when the finish event is received
+    print('Finish event received');
   },
   onClose: () {
-    // Faça algo quando o evento close for recebido
-    print('Evento close recebido');
+    // Do something when the close event is received
+    print('Close event received');
   },
 ),
 ```
 
-3. Adicione o widget GoSaffeCapture onde você deseja que ele seja exibido em sua interface de usuário.
+3. Add the GoSaffeCapture widget where you want it to be displayed in your user interface.
 
 ```dart
 Scaffold(
   appBar: AppBar(
-    title: Text('Exemplo de GoSaffeCapture'),
+    title: Text('Example of GoSaffeCapture'),
   ),
   body: Center(
     child: GoSaffeCapture(
-      apiKey: 'sua_api_key',
-      identifier: 'identificador_do_usuario',
-      type: 'tipo',
+      apiKey: 'your_api_key',
+      user: 'user_identifier',
+      type: 'verification | onboarding',
       endToEndId: 'end_to_end_id',
       onFinish: () {
-        // Faça algo quando o evento finish for recebido
-        print('Evento finish recebido');
+        // Do something when the finish event is received
+        print('Finish event received');
       },
       onClose: () {
-        // Faça algo quando o evento close for recebido
-        print('Evento close recebido');
+        // Do something when the close event is received
+        print('Close event received');
       },
     ),
   ),
 ),
 ```
 
-Certifique-se de substituir `'sua_api_key'`, `'identificador_do_usuario'`, `'tipo'` e `'end_to_end_id'` pelos valores reais necessários.
+Make sure to replace `'your_api_key'`, `'user'` and `'end_to_end_id'` with the actual values needed.
 
-## Suporte
+## Support
 
-Se você tiver alguma dúvida ou encontrar algum problema, sinta-se à vontade para abrir uma [issue](https://github.com/saffe/go_saffe_flutter/issues) neste repositório.
+If you have any questions or encounter any issues, feel free to open an [issue](https://github.com/saffe/go_saffe_flutter/issues) in this repository.
