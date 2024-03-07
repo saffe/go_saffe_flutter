@@ -12,9 +12,18 @@ class GoSaffeCapture extends StatefulWidget {
   final String identifier;
   final String type;
   final String endToEndId;
+  final Function()? onFinish;
+  final Function()? onClose;
 
-  const GoSaffeCapture(this.apiKey, this.identifier, this.type, this.endToEndId,
-      {super.key});
+  const GoSaffeCapture(
+    this.apiKey,
+    this.identifier,
+    this.type,
+    this.endToEndId,
+    this.onFinish,
+    this.onClose, {
+    super.key,
+  });
 
   @override
   State<GoSaffeCapture> createState() => _CaptureState();
@@ -51,7 +60,7 @@ class _CaptureState extends State<GoSaffeCapture> {
             InAppWebView(
               key: webViewKey,
               initialUrlRequest: URLRequest(
-                url: WebUri("https://xl7coszbs3ct.share.zrok.io/v0/capture"),
+                url: WebUri("https://c2hnkoo41sql.share.zrok.io/v0/capture"),
                 method: "POST",
                 body: Uint8List.fromList(utf8.encode(jsonEncode({
                   "api_key": widget.apiKey,
@@ -66,11 +75,6 @@ class _CaptureState extends State<GoSaffeCapture> {
               initialSettings: settings,
               onWebViewCreated: (controller) {
                 webViewController = controller;
-                controller.addJavaScriptHandler(
-                    handlerName: 'handler',
-                    callback: (args) {
-                      print("aqui");
-                    });
               },
               onLoadStart: (controller, url) {
                 setState(() {
@@ -91,6 +95,35 @@ class _CaptureState extends State<GoSaffeCapture> {
                   this.url = url.toString();
                   urlController.text = this.url;
                 });
+
+                controller.addJavaScriptHandler(
+                    handlerName: 'receiveMessage',
+                    callback: (args) {
+                      final source = args[0]['source'];
+                      final event = args[0]['payload']['event'];
+
+                      if (source == 'go-saffe-capture' && event == 'finish') {
+                        if (widget.onFinish != null) {
+                          widget.onFinish!();
+                        }
+                      }
+
+                      if (source == 'go-saffe-capture' && event == 'close') {
+                        if (widget.onClose != null) {
+                          widget.onClose!();
+                        }
+                      }
+                    });
+
+                controller.evaluateJavascript(source: '''
+                  window.addEventListener('message', function(event) {
+                    // Verifica se a mensagem é do tipo esperado
+                    if (event.data && event.data.source === 'go-saffe-capture' && event.data.payload.event === 'finish') {
+                      // Envia a mensagem para o callback do Flutter
+                      window.flutter_inappwebview.callHandler('receiveMessage', event.data);
+                    }
+                  });
+                ''');
               },
               onProgressChanged: (controller, progress) {
                 if (progress >= 100) {
@@ -106,7 +139,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                 });
               },
               onConsoleMessage: (controller, consoleMessage) {
-                  print(consoleMessage)
+                print(consoleMessage);
               },
             ),
             if (isLoading)
