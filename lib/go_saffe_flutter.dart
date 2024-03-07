@@ -60,7 +60,7 @@ class _CaptureState extends State<GoSaffeCapture> {
             InAppWebView(
               key: webViewKey,
               initialUrlRequest: URLRequest(
-                url: WebUri("https://c2hnkoo41sql.share.zrok.io/v0/capture"),
+                url: WebUri("https://go.saffe.ai/v0/capture"),
                 method: "POST",
                 body: Uint8List.fromList(utf8.encode(jsonEncode({
                   "api_key": widget.apiKey,
