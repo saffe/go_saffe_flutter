@@ -37,6 +37,10 @@ GoSaffeCapture(
     // Do something when the close event is received
     print('Close event received');
   },
+  onError: () {
+    // Do something when the return some error on rendering screen
+    print('Error received');
+  }
 ),
 ```
 
@@ -61,6 +65,10 @@ Scaffold(
         // Do something when the close event is received
         print('Close event received');
       },
+      onError: () {
+        // Do something when the return some error on rendering screen
+        print('Error received');
+      }
     ),
   ),
 ),

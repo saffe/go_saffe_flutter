@@ -14,6 +14,7 @@ class GoSaffeCapture extends StatefulWidget {
   final String endToEndId;
   final Function()? onFinish;
   final Function()? onClose;
+  final Function()? onError;
 
   const GoSaffeCapture(
     this.apiKey,
@@ -21,7 +22,8 @@ class GoSaffeCapture extends StatefulWidget {
     this.type,
     this.endToEndId,
     this.onFinish,
-    this.onClose, {
+    this.onClose,
+    this.onError, {
     super.key,
   });
 
@@ -139,6 +141,11 @@ class _CaptureState extends State<GoSaffeCapture> {
                 });
               },
               onConsoleMessage: (controller, consoleMessage) {},
+              onReceivedError: (controller, request, error) {
+                if (widget.onError != null) {
+                  widget.onError!();
+                }
+              },
             ),
             if (isLoading)
               const Center(
