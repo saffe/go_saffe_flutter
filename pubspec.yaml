@@ -1,10 +1,11 @@
 name: go_saffe_flutter
-description: "A new Flutter package project."
+description: "Saffe capture flutter package."
 version: 0.0.1
 homepage:
+repository: https://github.com/saffe/go_saffe_flutter
 
 environment:
-  sdk: '>=3.3.0 <4.0.0'
+  sdk: ">=3.3.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
