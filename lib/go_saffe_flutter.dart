@@ -69,11 +69,10 @@ class _CaptureState extends State<GoSaffeCapture> {
             if (snapshot.hasError) {
               return Scaffold(
                 body: Center(
-                  child: Text('Erro ao verificar o dispositivo seguro.'),
+                  child: Text('Error while checking the device.'),
                 ),
               );
             } else {
-              print(snapshot.data);
               return Scaffold(
                   body: SafeArea(
                       child: Column(children: <Widget>[
