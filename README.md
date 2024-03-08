@@ -1,16 +1,5 @@
 # GoSaffeCapture Flutter
 
-## Installation
-
-To use GoSaffeCapture in your Flutter project, you need to add the dependency to your `pubspec.yaml` file:
-
-```yaml
-dependencies:
-  go_saffe_flutter: ^0.0.2
-```
-
-After adding the dependency, run `flutter pub get` to install the package.
-
 ## Usage
 
 To use GoSaffeCapture in your application, follow these steps:
