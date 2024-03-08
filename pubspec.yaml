@@ -1,6 +1,6 @@
 name: go_saffe_flutter
 description: "Saffe capture flutter package."
-version: 0.0.2
+version: 0.0.3
 homepage:
 repository: https://github.com/saffe/go_saffe_flutter
 
@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   flutter_inappwebview: ^6.0.0
   permission_handler: ^11.3.0
+  dartz: ^0.10.1
+  safe_device: ^1.1.6
 
 dev_dependencies:
   flutter_test:
