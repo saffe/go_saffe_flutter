@@ -14,10 +14,10 @@ import 'package:go_saffe_flutter/go_saffe_flutter.dart';
 
 ```dart
 GoSaffeCapture(
-  captureKey: 'your_api_key',
-  user: 'user_identifier',
-  type: 'verification | onboarding',
-  endToEndId: 'end_to_end_id',
+  captureKey: '', // capture key (sandbox or production)
+  user: '', // end-user identifier (either email or CPF)
+  type: '', // 'onboarding' or 'verification'
+  endToEndId: '', // identifier to keep consistency between front and backend
   onFinish: () {
     // Do something when the finish event is received
     print('Finish event received');
@@ -63,7 +63,7 @@ Scaffold(
 ),
 ```
 
-Make sure to replace `'your_api_key'`, `'user'` and `'end_to_end_id'` with the actual values needed.
+Make sure to replace `captureKey`, `user` and `endToEndId` with the actual values needed.
 
 ## Support
 
