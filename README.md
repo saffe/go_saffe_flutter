@@ -14,7 +14,7 @@ import 'package:go_saffe_flutter/go_saffe_flutter.dart';
 
 ```dart
 GoSaffeCapture(
-  apiKey: 'your_api_key',
+  captureKey: 'your_api_key',
   user: 'user_identifier',
   type: 'verification | onboarding',
   endToEndId: 'end_to_end_id',
@@ -42,7 +42,7 @@ Scaffold(
   ),
   body: Center(
     child: GoSaffeCapture(
-      apiKey: 'your_api_key',
+      captureKey: 'your_api_key',
       user: 'user_identifier',
       type: 'verification | onboarding',
       endToEndId: 'end_to_end_id',

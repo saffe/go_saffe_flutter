@@ -8,7 +8,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:safe_device/safe_device.dart';
 
 class GoSaffeCapture extends StatefulWidget {
-  final String apiKey;
+  final String captureKey;
   final String user;
   final String type;
   final String endToEndId;
@@ -17,7 +17,7 @@ class GoSaffeCapture extends StatefulWidget {
   final Function()? onError;
 
   const GoSaffeCapture(
-    this.apiKey,
+    this.captureKey,
     this.user,
     this.type,
     this.endToEndId,
@@ -77,7 +77,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                         url: WebUri("https://go.saffe.ai/v0/capture"),
                         method: "POST",
                         body: Uint8List.fromList(utf8.encode(jsonEncode({
-                          "api_key": widget.apiKey,
+                          "capture_key": widget.captureKey,
                           "user_identifier": widget.user,
                           "type": widget.type,
                           "end_to_end_id": widget.endToEndId,
