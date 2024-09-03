@@ -139,6 +139,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                                 if (widget.onTimeout != null) {
                                   widget.onTimeout!();
                                 }
+                              }
                             });
 
                         controller.evaluateJavascript(source: '''
