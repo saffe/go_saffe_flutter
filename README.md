@@ -26,6 +26,10 @@ GoSaffeCapture(
     // Do something when the close event is received
     print('Close event received');
   },
+  onTimeout: () {
+      // Do something when the timeout event is received
+      print('Timeout event received');
+  },
   onError: () {
     // Do something when the return some error on rendering screen
     print('Error received');
@@ -53,6 +57,10 @@ Scaffold(
       onClose: () {
         // Do something when the close event is received
         print('Close event received');
+      },
+      onTimeout: () {
+        // Do something when the timeout event is received
+        print('Timeout event received');
       },
       onError: () {
         // Do something when the return some error on rendering screen

@@ -15,6 +15,7 @@ class GoSaffeCapture extends StatefulWidget {
   final Function()? onFinish;
   final Function()? onClose;
   final Function()? onError;
+  final Function()? onTimeout;
 
   const GoSaffeCapture(
     this.captureKey,
@@ -23,7 +24,8 @@ class GoSaffeCapture extends StatefulWidget {
     this.endToEndId,
     this.onFinish,
     this.onClose,
-    this.onError, {
+    this.onError,
+    this.onTimeout, {
     super.key,
   });
 
@@ -131,6 +133,12 @@ class _CaptureState extends State<GoSaffeCapture> {
                                   widget.onClose!();
                                 }
                               }
+
+                              if (source == 'go-saffe-capture' &&
+                                  event == 'timeout') {
+                                if (widget.onTimeout != null) {
+                                  widget.onTimeout!();
+                                }
                             });
 
                         controller.evaluateJavascript(source: '''
