@@ -4,40 +4,36 @@
 
 To use GoSaffeCapture in your application, follow these steps:
 
-1. Import the package `go_saffe_flutter/go_saffe_flutter.dart`.
+1. Import the package:
 
 ```dart
 import 'package:go_saffe_flutter/go_saffe_flutter.dart';
 ```
 
-2. Create an instance of GoSaffeCapture with the necessary parameters, including the API key, user identifier, type, and end-to-end ID. Additionally, define the `onFinish` and `onClose` callback functions to handle the corresponding events received from the WebView.
+2. Create an instance of GoSaffeCapture with the necessary parameters. Note: location must be enabled in our panel.
 
 ```dart
 GoSaffeCapture(
-  captureKey: '', // capture key (sandbox or production)
-  user: '', // end-user identifier (either email or CPF)
-  type: '', // 'onboarding' or 'verification'
-  endToEndId: '', // identifier to keep consistency between front and backend
+  captureKey: '',   // capture key (sandbox or production)
+  user: '',         // end-user identifier (either email or CPF)
+  type: '',         // 'onboarding' or 'verification'
+  endToEndId: '',   // identifier to keep consistency between front and backend
   onFinish: () {
-    // Do something when the finish event is received
     print('Finish event received');
   },
   onClose: () {
-    // Do something when the close event is received
     print('Close event received');
   },
   onTimeout: () {
-      // Do something when the timeout event is received
-      print('Timeout event received');
+    print('Timeout event received');
   },
   onError: () {
-    // Do something when the return some error on rendering screen
     print('Error received');
-  }
+  },
 ),
 ```
 
-3. Add the GoSaffeCapture widget where you want it to be displayed in your user interface.
+3. Add the widget where desired:
 
 ```dart
 Scaffold(
@@ -51,28 +47,43 @@ Scaffold(
       type: 'verification | onboarding',
       endToEndId: 'end_to_end_id',
       onFinish: () {
-        // Do something when the finish event is received
         print('Finish event received');
       },
       onClose: () {
-        // Do something when the close event is received
         print('Close event received');
       },
       onTimeout: () {
-        // Do something when the timeout event is received
         print('Timeout event received');
       },
       onError: () {
-        // Do something when the return some error on rendering screen
         print('Error received');
-      }
+      },
     ),
   ),
 ),
 ```
 
-Make sure to replace `captureKey`, `user` and `endToEndId` with the actual values needed.
+## Native Configuration
+
+This widget uses a WebView that requires native permissions for camera and location access.  
+Make sure to update the native configuration in your app and note that location must be enabled in our panel.
+
+### iOS (Info.plist)
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>We need camera access</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need location access</string>
+```
+
+### Android (AndroidManifest.xml)
+
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
 
 ## Support
 
-If you have any questions or encounter any issues, feel free to open an [issue](https://github.com/saffe/go_saffe_flutter/issues) in this repository.
+If you have any questions or issues, feel free to open an [issue](https://github.com/saffe/go_saffe_flutter/issues) in this repository.
