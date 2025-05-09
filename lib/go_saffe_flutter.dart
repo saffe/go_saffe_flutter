@@ -129,6 +129,7 @@ class _CaptureState extends State<GoSaffeCapture> {
 
                               if (source == 'go-saffe-capture' &&
                                   event == 'close') {
+                                print("close");
                                 if (widget.onClose != null) {
                                   widget.onClose!();
                                 }
@@ -144,7 +145,7 @@ class _CaptureState extends State<GoSaffeCapture> {
 
                         controller.evaluateJavascript(source: '''
                           window.addEventListener('message', function(event) {
-                            if (event.data && event.data.source === 'go-saffe-capture' && event.data.payload.event === 'finish') {
+                            if (event.data && event.data.source === 'go-saffe-capture') {
                               window.flutter_inappwebview.callHandler('receiveMessage', event.data);
                             }
                           });

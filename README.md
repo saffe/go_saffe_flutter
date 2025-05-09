@@ -14,22 +14,14 @@ import 'package:go_saffe_flutter/go_saffe_flutter.dart';
 
 ```dart
 GoSaffeCapture(
-  captureKey: '',   // capture key (sandbox or production)
-  user: '',         // end-user identifier (either email or CPF)
-  type: '',         // 'onboarding' or 'verification'
-  endToEndId: '',   // identifier to keep consistency between front and backend
-  onFinish: () {
-    print('Finish event received');
-  },
-  onClose: () {
-    print('Close event received');
-  },
-  onTimeout: () {
-    print('Timeout event received');
-  },
-  onError: () {
-    print('Error received');
-  },
+  '<CAPTURE_KEY>',              // capture key (sandbox or production)
+  '<USER_IDENTIFIER>',          // end-user identifier (either email or CPF)
+  'verification | onboarding',         // 'onboarding' or 'verification'
+  '<END_TO_END_ID>',              // identifier to keep consistency between front and backend
+  () { print('Finish event received'); },
+  () { print('Close event received'); },
+  () { print('Timeout event received'); },
+  () { print('Error received'); },
 ),
 ```
 
@@ -42,20 +34,20 @@ Scaffold(
   ),
   body: Center(
     child: GoSaffeCapture(
-      captureKey: 'your_api_key',
-      user: 'user_identifier',
-      type: 'verification | onboarding',
-      endToEndId: 'end_to_end_id',
-      onFinish: () {
+      'your_api_key',
+      'user_identifier',
+      'verification | onboarding',
+      'end_to_end_id',
+      () {
         print('Finish event received');
       },
-      onClose: () {
+      () {
         print('Close event received');
       },
-      onTimeout: () {
+      () {
         print('Timeout event received');
       },
-      onError: () {
+      () {
         print('Error received');
       },
     ),
