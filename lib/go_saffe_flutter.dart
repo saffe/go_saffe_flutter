@@ -102,7 +102,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                           "type": widget.type,
                           "end_to_end_id": widget.endToEndId,
                           "device_context": snapshot.data,
-			  "extra_data": widget.extraData,
+                          "extra_data": widget.extraData,
                         }))),
                         headers: {
                           'Content-Type': 'application/x-www-form-urlencoded',
