@@ -7,6 +7,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:safe_device/safe_device.dart';
 
+class Settings {
+  String? primaryColor;
+  String? secondaryColor;
+  String? lang;
+}
+
+class ResultNotification {
+  String media;
+  String email; 
+}
+
+class ExtraData {
+  Settings? settings;
+  ResultNotification? notification;
+}
+
 class GoSaffeCapture extends StatefulWidget {
   final String captureKey;
   final String user;
@@ -16,6 +32,7 @@ class GoSaffeCapture extends StatefulWidget {
   final Function()? onClose;
   final Function()? onError;
   final Function()? onTimeout;
+  final ExtraData? extraData;
 
   const GoSaffeCapture(
     this.captureKey,
@@ -25,7 +42,8 @@ class GoSaffeCapture extends StatefulWidget {
     this.onFinish,
     this.onClose,
     this.onError,
-    this.onTimeout, {
+    this.onTimeout,
+    this.extraData, {
     super.key,
   });
 
@@ -84,6 +102,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                           "type": widget.type,
                           "end_to_end_id": widget.endToEndId,
                           "device_context": snapshot.data,
+			  "extra_data": widget.extraData,
                         }))),
                         headers: {
                           'Content-Type': 'application/x-www-form-urlencoded',
