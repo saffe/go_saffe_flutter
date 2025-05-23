@@ -73,6 +73,29 @@ class _CaptureState extends State<GoSaffeCapture> {
     _safeDeviceInfoFuture = _checkSafeDevice();
   }
 
+  Map<String, dynamic>? parseExtraData(ExtraData? extraData) {
+    if (extraData == null) return null;
+
+    final Map<String, dynamic> extraDataDTO = {};
+
+    if (extraData.settings != null) {
+      extraDataDTO['settings'] = {
+        'primary_color': extraData.settings!.primaryColor,
+        'secondary_color': extraData.settings!.secondaryColor,
+        'lang': extraData.settings!.lang,
+      };
+    }
+
+    if (extraData.notification != null) {
+      extraDataDTO['send_results_to'] = {
+        'media': extraData.notification!.media,
+        'email': extraData.notification!.email,
+      };
+    }
+
+    return extraDataDTO;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, bool>?>(
@@ -102,7 +125,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                           "type": widget.type,
                           "end_to_end_id": widget.endToEndId,
                           "device_context": snapshot.data,
-                          "extra_data": widget.extraData,
+                          "extra_data": parseExtraData(widget.extraData),
                         }))),
                         headers: {
                           'Content-Type': 'application/x-www-form-urlencoded',
