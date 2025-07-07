@@ -13,14 +13,8 @@ class Settings {
   String? lang;
 }
 
-class ResultNotification {
-  String media;
-  String email; 
-}
-
 class ExtraData {
   Settings? settings;
-  ResultNotification? notification;
 }
 
 class GoSaffeCapture extends StatefulWidget {
@@ -42,8 +36,8 @@ class GoSaffeCapture extends StatefulWidget {
     this.onFinish,
     this.onClose,
     this.onError,
-    this.onTimeout,
-    this.extraData, {
+    this.onTimeout, {
+    this.extraData,
     super.key,
   });
 
@@ -86,13 +80,6 @@ class _CaptureState extends State<GoSaffeCapture> {
       };
     }
 
-    if (extraData.notification != null) {
-      extraDataDTO['send_results_to'] = {
-        'media': extraData.notification!.media,
-        'email': extraData.notification!.email,
-      };
-    }
-
     return extraDataDTO;
   }
 
@@ -102,7 +89,7 @@ class _CaptureState extends State<GoSaffeCapture> {
         future: _safeDeviceInfoFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -171,7 +158,6 @@ class _CaptureState extends State<GoSaffeCapture> {
 
                               if (source == 'go-saffe-capture' &&
                                   event == 'close') {
-                                print("close");
                                 if (widget.onClose != null) {
                                   widget.onClose!();
                                 }
