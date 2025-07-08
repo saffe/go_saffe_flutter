@@ -7,6 +7,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:safe_device/safe_device.dart';
 
+class Settings {
+  String? primaryColor;
+  String? secondaryColor;
+  String? lang;
+}
+
+class ExtraData {
+  Settings? settings;
+}
+
 class GoSaffeCapture extends StatefulWidget {
   final String captureKey;
   final String user;
@@ -16,6 +26,7 @@ class GoSaffeCapture extends StatefulWidget {
   final Function()? onClose;
   final Function()? onError;
   final Function()? onTimeout;
+  final ExtraData? extraData;
 
   const GoSaffeCapture(
     this.captureKey,
@@ -26,6 +37,7 @@ class GoSaffeCapture extends StatefulWidget {
     this.onClose,
     this.onError,
     this.onTimeout, {
+    this.extraData,
     super.key,
   });
 
@@ -55,13 +67,29 @@ class _CaptureState extends State<GoSaffeCapture> {
     _safeDeviceInfoFuture = _checkSafeDevice();
   }
 
+  Map<String, dynamic>? parseExtraData(ExtraData? extraData) {
+    if (extraData == null) return null;
+
+    final Map<String, dynamic> extraDataDTO = {};
+
+    if (extraData.settings != null) {
+      extraDataDTO['settings'] = {
+        'primary_color': extraData.settings!.primaryColor,
+        'secondary_color': extraData.settings!.secondaryColor,
+        'lang': extraData.settings!.lang,
+      };
+    }
+
+    return extraDataDTO;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, bool>?>(
         future: _safeDeviceInfoFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
@@ -84,6 +112,7 @@ class _CaptureState extends State<GoSaffeCapture> {
                           "type": widget.type,
                           "end_to_end_id": widget.endToEndId,
                           "device_context": snapshot.data,
+                          "extra_data": parseExtraData(widget.extraData),
                         }))),
                         headers: {
                           'Content-Type': 'application/x-www-form-urlencoded',
@@ -129,7 +158,6 @@ class _CaptureState extends State<GoSaffeCapture> {
 
                               if (source == 'go-saffe-capture' &&
                                   event == 'close') {
-                                print("close");
                                 if (widget.onClose != null) {
                                   widget.onClose!();
                                 }
