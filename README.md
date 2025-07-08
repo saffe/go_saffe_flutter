@@ -13,7 +13,6 @@ import 'package:go_saffe_flutter/go_saffe_flutter.dart';
 2. Create an instance of GoSaffeCapture with the necessary parameters. Note: location must be enabled in our panel.
 
 ```dart
-// Basic usage without extraData
 GoSaffeCapture(
   '<CAPTURE_KEY>',              // capture key (sandbox or production)
   '<USER_IDENTIFIER>',          // end-user identifier (either email or CPF)
@@ -56,28 +55,30 @@ Scaffold(
 ),
 ```
 
-## Extra Data (Optional)
+## The `extraData` parameter
 
-The `extraData` parameter allows you to customize the appearance and behavior of the GoSaffeCapture widget. It's a named parameter, so you only need to include it when you want to customize the widget. If you don't want any customization, simply omit the parameter.
+The `extraData` parameter is optional and allows for dynamic changes specific to the transaction, such as language and colors. It's a named parameter, so you only need to include it when you want to customize the widget. If you don't want any customization, simply omit it.
 
-### Creating ExtraData
+Primary and secondary colors should be informed in hexadecimal code. Possible values for the key "lang" at the moment are "en" so that the capture interface is presented in english, "pt" for the language to be portuguese, and "es" for spanish.
 
-All fields in `Settings` are optional. You can customize only the fields you need:
+### Example of `ExtraData` usage
+
+All attributes in `Settings` are optional and you can inform only the fields you need.
 
 ```dart
 // Example with all settings
 final extraData = ExtraData(
   settings: Settings(
-    primaryColor: '#FF0000',     // Primary color in hex format
-    secondaryColor: '#00FF00',   // Secondary color in hex format
-    lang: 'pt',                  // Language code (e.g., 'pt', 'en', 'es')
+    primaryColor: '#00ABAB',
+    secondaryColor: '#6A6A6A',
+    lang: 'en',
   ),
 );
 
 // Example with only primary color
 final extraDataMinimal = ExtraData(
   settings: Settings(
-    primaryColor: '#1976D2',
+    primaryColor: '#00ABAB',
   ),
 );
 
@@ -89,7 +90,7 @@ final extraDataLang = ExtraData(
 );
 ```
 
-### Using ExtraData
+### Informing `ExtraData`
 
 Simply add the `extraData` parameter as a named parameter when creating the GoSaffeCapture widget:
 
@@ -113,7 +114,7 @@ GoSaffeCapture(
 final extraData = ExtraData(
   settings: Settings(
     primaryColor: '#00ABAB',
-    secondaryColor: '#FFC107',
+    secondaryColor: '#6A6A6A',
     lang: 'pt',
   ),
 );
@@ -162,3 +163,7 @@ Make sure to update the native configuration in your app and note that location 
 ## Support
 
 If you have any questions or issues, feel free to open an [issue](https://github.com/saffe/go_saffe_flutter/issues) in this repository.
+
+## License
+
+MIT
