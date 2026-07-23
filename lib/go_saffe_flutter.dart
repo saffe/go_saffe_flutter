@@ -1,5 +1,3 @@
-library go_saffe_flutter;
-
 import 'dart:convert';
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
